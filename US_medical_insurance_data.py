@@ -72,15 +72,15 @@ def dict_data(lst1, lst2):
     return res
 
 # dict for smokers and non-smokers insurance costs
-smok = dict_data(smoker, charges)
+smoke = dict_data(smoker, charges)
 
 # count number of smokers and non-smokers
 number_of_smokers = smoker.count('yes')
 number_of_non_smokers = smoker.count('no')
 
 # count smokers and non-smokers average insurance costs
-smokers_avg_charges = smok['yes'] / number_of_smokers
-non_smokers_avg_charges = smok['no'] / number_of_non_smokers
+smokers_avg_charges = smoke['yes'] / number_of_smokers
+non_smokers_avg_charges = smoke['no'] / number_of_non_smokers
               
 print(smokers_avg_charges, non_smokers_avg_charges)
 
@@ -103,16 +103,25 @@ northeast_avg_charges = location_data['northeast'] / number_of_northeast_people
  
 print(southeast_avg_charges, southwest_avg_charges, northeast_avg_charges, northwest_avg_charges)
 
-def dict_data2(children, bmi, charges):
+def dict_data2(lst3, lst4):
     children_data = {}
-    for i in range(len(bmi)):
-        children_data[children[i]] = {"Children": children[i], "Bmi": bmi[i], "Charges": charges[i]}
-    return children_data
-
-cd = dict_data2(children, bmi, charges)
+    count = {}
+    avg_data2 = {}
+    for i in range(len(lst4)):
+        if lst3[i] not in children_data:
+            children_data[lst3[i]] = float(lst4[i])
+            count[lst3[i]] = 1
+        else:
+            children_data[lst3[i]] += float(lst4[i])
+            count[lst3[i]] += 1
+            avg_data2[lst3[i]] = children_data[lst3[i]] / count[lst3[i]] 
+    return avg_data2
+               
+avg_bmi_per_child = dict_data2(children, bmi)
+avg_charges_per_child = dict_data2(children, charges)
     
-print(cd)
-    
+print(avg_bmi_per_child)
+print(avg_charges_per_child)  
     
     
     
