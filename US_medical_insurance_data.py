@@ -34,14 +34,14 @@ with open('C:\DATA SCIENCE\PYTHON\PROJECT\PORTFOLIO PROJECT_US Medical Insurance
           region.append(item[5])
           charges.append(item[6])
 
-# will be checked len = number of patient (1338)    
+# check lens = number of patient (1338)    
 print(len(age))
 print(len(sex))
 print(len(bmi))
 print(len(children))
 print(len(smoker))
 print(len(region))
-print(charges)
+print(len(charges))
 
 # function for averaging
 def avg_data(lst):
@@ -56,16 +56,17 @@ def avg_data(lst):
 avg_age = avg_data(age)
 avg_bmi = avg_data(bmi)
 avg_charges = avg_data(charges)
+# convert string to float
 bmi_lst = [float(i) for i in bmi]
 charges_lst = [float(i) for i in charges]
 
-# (39.21, 30.66, 13270.42)
-print("Average age: " + str(avg_age), "Minimum age: " + str(min(age)), 
-      "Maximum age: " + str(max(age)))
-print("Average bmi: " + str(avg_bmi), "Minimum bmi: " + str(min(bmi_lst)), 
-      "Maximum bmi: " + str(max(bmi_lst)))
-print("Average charges: " + str(avg_charges), "Minimum charges: " + str(min(charges_lst)),
-      "Maximum charges: " + str(max(charges_lst)))
+# print average, minimum and maximum vealues for age, bmi and charges
+print("Average age: " + str(avg_age) + ", Minimum age: " + str(min(age)) + 
+      ", Maximum age: " + str(max(age)))
+print("Average bmi: " + str(avg_bmi) + ", Minimum bmi: " + str(min(bmi_lst)) +
+      ", Maximum bmi: " + str(max(bmi_lst)))
+print("Average charges: " + str(avg_charges) + ", Minimum charges: " + str(min(charges_lst)) +
+      ", Maximum charges: " + str(max(charges_lst)))
 
 # comparing insurance costs between smokers and non-smokers  
 # function for combining 2 lists to dict and add the values
@@ -78,51 +79,60 @@ def dict_data(lst1, lst2):
             res[lst1[i]] += float(lst2[i])
     return res
 
-# dict for smokers and non-smokers insurance costs
+# dict for smokers and non-smokers charges
 smoke = dict_data(smoker, charges)
 
-# count number of smokers and non-smokers
-number_of_smokers = smoker.count('yes')
-number_of_non_smokers = smoker.count('no')
-
-# count smokers and non-smokers average insurance costs
-smokers_avg_charges = smoke['yes'] / number_of_smokers
-non_smokers_avg_charges = smoke['no'] / number_of_non_smokers
+# count smokers and non-smokers average chargers
+smokers_avg_charges = smoke['yes'] / smoker.count('yes')
+non_smokers_avg_charges = smoke['no'] / smoker.count('no')
               
-print("Smokers average charges:" + str(smokers_avg_charges), 
-      "Non-smokers average charges:" + str(non_smokers_avg_charges))
+print("Smokers average charges: " + str(smokers_avg_charges) + 
+      ", Non-smokers average charges: " + str(non_smokers_avg_charges))
 
-# dict for insurance costs by location
+# dict for chargers by location
 location_data = dict_data(region, charges)
 
-# count average insurance costs by locations
+# count average chargers by locations
 southwest_avg_charges = location_data['southwest'] / region.count('southwest')
 southeast_avg_charges = location_data['southeast'] / region.count('southeast')
 northwest_avg_charges = location_data['northwest'] / region.count('northwest')
 northeast_avg_charges = location_data['northeast'] / region.count('northeast')
  
-print("Southeast average charges: "+ str(southeast_avg_charges), 
-      "Southwest average charges: " + str(southwest_avg_charges), 
-      "Northeast average charges: " + str(northeast_avg_charges),
-      "Northwest average charges: " + str(northwest_avg_charges))
+print("Southeast average charges: "+ str(southeast_avg_charges) + 
+      ", Southwest average charges: " + str(southwest_avg_charges) + 
+      ", Northeast average charges: " + str(northeast_avg_charges) +
+      ", Northwest average charges: " + str(northwest_avg_charges))
 
-def dict_data2(lst3, lst4):
-    children_data = {}
+# average charges for different numbers of children   
+# function for combining 2 lists to dict and add the values 
+def children_data(lst3, lst4):
+    child_data = {}
     count = {}
     avg_data2 = {}
     for i in range(len(lst4)):
-        if lst3[i] not in children_data:
-            children_data[lst3[i]] = float(lst4[i])
+        if lst3[i] not in child_data:
+            child_data[lst3[i]] = float(lst4[i])
             count[lst3[i]] = 1
         else:
-            children_data[lst3[i]] += float(lst4[i])
+            child_data[lst3[i]] += float(lst4[i])
             count[lst3[i]] += 1
-            avg_data2[lst3[i]] = children_data[lst3[i]] / count[lst3[i]] 
-    return avg_data2, count
-               
-avg_bmi_per_child = dict_data2(children, bmi)
-avg_charges_per_child = dict_data2(children, charges)
-    
+            avg_data2[lst3[i]] = child_data[lst3[i]] / count[lst3[i]] 
+    return (avg_data2, count)
+
+# dict for average bmi of different numbers of children and number of people       
+avg_bmi_per_child, people_count_bmi = children_data(children, bmi)
+# dict for average chargers of different numbers of children and number of people 
+avg_charges_per_child, people_count_ch = children_data(children, charges)
+
+# print results for average bmi and chargers 
+# and number of people of different number of children
+for k in sorted(avg_bmi_per_child):
+    print("Number of children: " + k + ", average bmi: " + str(avg_bmi_per_child[k]) + 
+          ", average charges: " + str(avg_charges_per_child[k]) + ", number of people: " 
+          + str(people_count_bmi[k]))
+ 
+
+
 
  
  
