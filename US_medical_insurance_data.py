@@ -50,15 +50,22 @@ def avg_data(lst):
     for value in lst:
         sum_of_lst += float(value)
     avg_lst = sum_of_lst / len(lst)
-    return avg_lst, sum_of_lst
+    return avg_lst
 
 # the averages are stored in the variables
 avg_age = avg_data(age)
 avg_bmi = avg_data(bmi)
 avg_charges = avg_data(charges)
+bmi_lst = [float(i) for i in bmi]
+charges_lst = [float(i) for i in charges]
 
 # (39.21, 30.66, 13270.42)
-print(avg_age, avg_bmi, avg_charges)
+print("Average age: " + str(avg_age), "Minimum age: " + str(min(age)), 
+      "Maximum age: " + str(max(age)))
+print("Average bmi: " + str(avg_bmi), "Minimum bmi: " + str(min(bmi_lst)), 
+      "Maximum bmi: " + str(max(bmi_lst)))
+print("Average charges: " + str(avg_charges), "Minimum charges: " + str(min(charges_lst)),
+      "Maximum charges: " + str(max(charges_lst)))
 
 # comparing insurance costs between smokers and non-smokers  
 # function for combining 2 lists to dict and add the values
@@ -82,26 +89,22 @@ number_of_non_smokers = smoker.count('no')
 smokers_avg_charges = smoke['yes'] / number_of_smokers
 non_smokers_avg_charges = smoke['no'] / number_of_non_smokers
               
-print(smokers_avg_charges, non_smokers_avg_charges)
+print("Smokers average charges:" + str(smokers_avg_charges), 
+      "Non-smokers average charges:" + str(non_smokers_avg_charges))
 
 # dict for insurance costs by location
 location_data = dict_data(region, charges)
 
-print(location_data)
-
-# count number of people in defferent locations
-number_of_southwest_people = region.count('southwest')
-number_of_southeast_people = region.count('southeast')
-number_of_northwest_people = region.count('northwest')
-number_of_northeast_people = region.count('northeast')
-
 # count average insurance costs by locations
-southwest_avg_charges = location_data['southwest'] / number_of_southwest_people
-southeast_avg_charges = location_data['southeast'] / number_of_southeast_people
-northwest_avg_charges = location_data['northwest'] / number_of_northwest_people
-northeast_avg_charges = location_data['northeast'] / number_of_northeast_people
+southwest_avg_charges = location_data['southwest'] / region.count('southwest')
+southeast_avg_charges = location_data['southeast'] / region.count('southeast')
+northwest_avg_charges = location_data['northwest'] / region.count('northwest')
+northeast_avg_charges = location_data['northeast'] / region.count('northeast')
  
-print(southeast_avg_charges, southwest_avg_charges, northeast_avg_charges, northwest_avg_charges)
+print("Southeast average charges: "+ str(southeast_avg_charges), 
+      "Southwest average charges: " + str(southwest_avg_charges), 
+      "Northeast average charges: " + str(northeast_avg_charges),
+      "Northwest average charges: " + str(northwest_avg_charges))
 
 def dict_data2(lst3, lst4):
     children_data = {}
@@ -115,13 +118,14 @@ def dict_data2(lst3, lst4):
             children_data[lst3[i]] += float(lst4[i])
             count[lst3[i]] += 1
             avg_data2[lst3[i]] = children_data[lst3[i]] / count[lst3[i]] 
-    return avg_data2
+    return avg_data2, count
                
 avg_bmi_per_child = dict_data2(children, bmi)
 avg_charges_per_child = dict_data2(children, charges)
     
-print(avg_bmi_per_child)
-print(avg_charges_per_child)  
+
+ 
+ 
     
     
     
