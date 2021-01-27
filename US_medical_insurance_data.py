@@ -43,7 +43,16 @@ print(len(smoker))
 print(len(region))
 print(len(charges))
 
-# function for averaging
+def data_dict(age, sex, bmi, children, smoker, region, charges): 
+    datas = {}
+    for i in range(len(age)): 
+        datas[i] = {"Age": age[i], "Sex": sex[i], "Bmi": bmi[i], "Children": children[i],
+                       "Smoker": smoker[i], "Region": region[i], "Charges": charges[i]} 
+    return datas
+
+dd = data_dict(age, sex, bmi, children, smoker, region, charges)
+
+# function for calculating average value
 def avg_data(lst):
     sum_of_lst = 0
     avg_lst = 0
@@ -60,7 +69,7 @@ avg_charges = avg_data(charges)
 bmi_lst = [float(i) for i in bmi]
 charges_lst = [float(i) for i in charges]
 
-# print average, minimum and maximum vealues for age, bmi and charges
+# print average, minimum and maximum values for age, bmi and charges
 print("Average age: " + str(avg_age) + ", Minimum age: " + str(min(age)) + 
       ", Maximum age: " + str(max(age)))
 print("Average bmi: " + str(avg_bmi) + ", Minimum bmi: " + str(min(bmi_lst)) +
@@ -70,17 +79,17 @@ print("Average charges: " + str(avg_charges) + ", Minimum charges: " + str(min(c
 
 # comparing insurance costs between smokers and non-smokers  
 # function for combining 2 lists to dict and add the values
-def dict_data(lst1, lst2):
-    res = {}
-    for i in range(len(lst1)):
-        if lst1[i] not in res:
-            res[lst1[i]] = float(lst2[i])
+def smoker_data(dd):
+    smoker_dict = {}
+    for k in dd:
+        if dd[k]['Smoker'] not in smoker_dict:
+            smoker_dict[dd[k]['Smoker']] = float(dd[k]['Charges'])
         else:
-            res[lst1[i]] += float(lst2[i])
-    return res
+            smoker_dict[dd[k]['Smoker']] += float(dd[k]['Charges'])
+    return smoker_dict
 
 # dict for smokers and non-smokers charges
-smoke = dict_data(smoker, charges)
+smoke = smoker_data(dd)
 
 # count smokers and non-smokers average chargers
 smokers_avg_charges = smoke['yes'] / smoker.count('yes')
@@ -89,19 +98,66 @@ non_smokers_avg_charges = smoke['no'] / smoker.count('no')
 print("Smokers average charges: " + str(smokers_avg_charges) + 
       ", Non-smokers average charges: " + str(non_smokers_avg_charges))
 
-# dict for chargers by location
-location_data = dict_data(region, charges)
+def sex_data(dd):
+    num_of_smoker_female = 0
+    num_of_non_smoker_female = 0
+    num_of_smoker_male = 0
+    num_of_non_smoker_male = 0
+    charges_of_smoker_female = 0
+    charges_of_non_smoker_female = 0
+    charges_of_smoker_male = 0
+    charges_of_non_smoker_male = 0
+    for k in dd:
+        if dd[k]['Sex'] == "female" and dd[k]['Smoker'] == 'yes':
+            num_of_smoker_female += 1 
+            charges_of_smoker_female += float(dd[k]['Charges'])
+        elif dd[k]['Sex'] == "female" and dd[k]['Smoker'] == 'no':
+            num_of_non_smoker_female += 1
+            charges_of_non_smoker_female += float(dd[k]['Charges'])
+        elif dd[k]['Sex'] == "male" and dd[k]['Smoker'] == 'yes':
+            num_of_smoker_male += 1
+            charges_of_smoker_male += float(dd[k]['Charges'])
+        elif dd[k]['Sex'] == "male" and dd[k]['Smoker'] == 'no':
+            num_of_non_smoker_male += 1
+            charges_of_non_smoker_male += float(dd[k]['Charges'])
+    return num_of_smoker_female, num_of_non_smoker_female, num_of_smoker_male, num_of_non_smoker_male, charges_of_smoker_female, charges_of_non_smoker_female, charges_of_smoker_male, charges_of_non_smoker_male
 
-# count average chargers by locations
-southwest_avg_charges = location_data['southwest'] / region.count('southwest')
-southeast_avg_charges = location_data['southeast'] / region.count('southeast')
-northwest_avg_charges = location_data['northwest'] / region.count('northwest')
-northeast_avg_charges = location_data['northeast'] / region.count('northeast')
+nosfe, nonsfe, nosm, nonsm, cosf, consf, cosm, consm = sex_data(dd)
+
+print("Number of smoker female: " + str(nosfe) + " and their avarage charges is: " + str(cosf/nosfe) + "\n" +
+      "Number of non-smoker female: " + str(nonsfe) + " and their avarage charges is: " + str(consf/nonsfe) + "\n" +
+      "Number of smoker male: " + str(nosm) + " and their avarage charges is: " + str(cosm/nosm) + "\n" +
+      "Number of non-smoker nmale: " + str(nonsm) + " and their avarage charges is: " + str(consm/nonsm))
+
+def location_data(region, charges):
+    location_tuple = list(zip(region, charges))
+    sw_charge = []
+    se_charge = []
+    nw_charge = []
+    ne_charge = []
+    for i in location_tuple:
+        if i[0] == 'southwest':
+            sw_charge.append(float(i[1]))
+        elif i[0] == 'souteast':
+            se_charge.append(float(i[1]))
+        elif i[0] == 'northwest':
+            nw_charge.append(float(i[1]))
+        elif i[0] == 'northeast':
+            ne_charge.append(float(i[1]))
+    return sw_charge, se_charge, nw_charge, ne_charge
+
+sw_charges, se_charges, nw_charges, ne_charges = location_data(region, charges)
  
-print("Southeast average charges: "+ str(southeast_avg_charges) + 
-      ", Southwest average charges: " + str(southwest_avg_charges) + 
-      ", Northeast average charges: " + str(northeast_avg_charges) +
-      ", Northwest average charges: " + str(northwest_avg_charges))
+print("Southeast number of people: "+ str(len(se_charges)) + " and average charges: " + str(sum(se_charges) / len(se_charges)) + "\n" +
+      "Southeast min charges: " + str(min(se_charges)) + " and max charges: " + str(min(se_charges)) + "\n" +
+      "Southwest number of people: "+ str(len(sw_charges)) + " and average charges: " + str(sum(sw_charges) / len(sw_charges)) + "\n" +
+      "Southwest min charges: " + str(min(sw_charges)) + " and max charges: " + str(min(sw_charges)) + "\n" +
+      "Northeast number of people: "+ str(len(ne_charges)) + " and average charges: " + str(sum(ne_charges) / len(ne_charges)) + "\n" +
+      "Northeast min charges: " + str(min(ne_charges)) + " and max charges: " + str(min(ne_charges)) + "\n" +
+      "Northwest number of people: "+ str(len(nw_charges)) + " and average charges: " + str(sum(nw_charges) / len(nw_charges)) + "\n" +
+      "orthwest min charges: " + str(min(nw_charges)) + " and max charges: " + str(min(nw_charges)))
+
+
 
 # average charges for different numbers of children   
 # function for combining 2 lists to dict and add the values 
@@ -130,10 +186,10 @@ for k in sorted(avg_bmi_per_child):
     print("Number of children: " + k + ", average bmi: " + str(avg_bmi_per_child[k]) + 
           ", average charges: " + str(avg_charges_per_child[k]) + ", number of people: " 
           + str(people_count_bmi[k]))
+
+
+
  
-
-
-
  
  
     
