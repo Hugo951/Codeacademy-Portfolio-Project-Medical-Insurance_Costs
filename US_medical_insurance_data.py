@@ -138,7 +138,7 @@ def location_data(region, charges):
     for i in location_tuple:
         if i[0] == 'southwest':
             sw_charge.append(float(i[1]))
-        elif i[0] == 'souteast':
+        elif i[0] == 'southeast':
             se_charge.append(float(i[1]))
         elif i[0] == 'northwest':
             nw_charge.append(float(i[1]))
@@ -148,16 +148,14 @@ def location_data(region, charges):
 
 sw_charges, se_charges, nw_charges, ne_charges = location_data(region, charges)
  
-print("Southeast number of people: "+ str(len(se_charges)) + " and average charges: " + str(sum(se_charges) / len(se_charges)) + "\n" +
-      "Southeast min charges: " + str(min(se_charges)) + " and max charges: " + str(min(se_charges)) + "\n" +
-      "Southwest number of people: "+ str(len(sw_charges)) + " and average charges: " + str(sum(sw_charges) / len(sw_charges)) + "\n" +
-      "Southwest min charges: " + str(min(sw_charges)) + " and max charges: " + str(min(sw_charges)) + "\n" +
-      "Northeast number of people: "+ str(len(ne_charges)) + " and average charges: " + str(sum(ne_charges) / len(ne_charges)) + "\n" +
-      "Northeast min charges: " + str(min(ne_charges)) + " and max charges: " + str(min(ne_charges)) + "\n" +
-      "Northwest number of people: "+ str(len(nw_charges)) + " and average charges: " + str(sum(nw_charges) / len(nw_charges)) + "\n" +
-      "orthwest min charges: " + str(min(nw_charges)) + " and max charges: " + str(min(nw_charges)))
-
-
+print("Southeast number of people: "+ str(len(se_charges)) + ", average charges: " + str(sum(se_charges) / len(se_charges)) + ", \n" +
+      "min charges: " + str(min(se_charges)) + " and max charges: " + str(max(se_charges)) + "\n" +
+      "Southwest number of people: "+ str(len(sw_charges)) + ", average charges: " + str(sum(sw_charges) / len(sw_charges)) + ", \n" +
+      "min charges: " + str(min(sw_charges)) + " and max charges: " + str(max(sw_charges)) + "\n" +
+      "Northeast number of people: "+ str(len(ne_charges)) + ", average charges: " + str(sum(ne_charges) / len(ne_charges)) + ", \n" +
+      "min charges: " + str(min(ne_charges)) + " and max charges: " + str(max(ne_charges)) + "\n" +
+      "Northwest number of people: "+ str(len(nw_charges)) + ", average charges: " + str(sum(nw_charges) / len(nw_charges)) + ", \n" +
+      "min charges: " + str(min(nw_charges)) + " and max charges: " + str(max(nw_charges)))
 
 # average charges for different numbers of children   
 # function for combining 2 lists to dict and add the values 
