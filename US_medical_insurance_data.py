@@ -77,7 +77,7 @@ print("Average bmi: " + str(avg_bmi) + ", Minimum bmi: " + str(min(bmi_lst)) +
 print("Average charges: " + str(avg_charges) + ", Minimum charges: " + str(min(charges_lst)) +
       ", Maximum charges: " + str(max(charges_lst)))
 
-# comparing insurance costs between smokers and non-smokers  
+# compare insurance costs between smokers and non-smokers  
 # function for combining 2 lists to dict and add the values
 def smoker_data(dd):
     smoker_dict = {}
@@ -94,10 +94,13 @@ smoke = smoker_data(dd)
 # count smokers and non-smokers average chargers
 smokers_avg_charges = smoke['yes'] / smoker.count('yes')
 non_smokers_avg_charges = smoke['no'] / smoker.count('no')
-              
+
+# print results of smokers and non-smokers average charges          
 print("Smokers average charges: " + str(smokers_avg_charges) + 
       ", Non-smokers average charges: " + str(non_smokers_avg_charges))
 
+# compare charges for both smoker/non-smoker female and men
+# function for combining dd dict and add the values
 def sex_data(dd):
     num_of_smoker_female = 0
     num_of_non_smoker_female = 0
@@ -120,15 +123,18 @@ def sex_data(dd):
         elif dd[k]['Sex'] == "male" and dd[k]['Smoker'] == 'no':
             num_of_non_smoker_male += 1
             charges_of_non_smoker_male += float(dd[k]['Charges'])
-    return num_of_smoker_female, num_of_non_smoker_female, num_of_smoker_male, num_of_non_smoker_male, charges_of_smoker_female, charges_of_non_smoker_female, charges_of_smoker_male, charges_of_non_smoker_male
+   return num_of_smoker_female, num_of_non_smoker_female, num_of_smoker_male, num_of_non_smoker_male, charges_of_smoker_female, charges_of_non_smoker_female, charges_of_smoker_male, charges_of_non_smoker_male
 
+# store results of both smoker/non-smoker female and men in the variables 
 nosfe, nonsfe, nosm, nonsm, cosf, consf, cosm, consm = sex_data(dd)
 
+# print results for both smoker/non-smoker female and men
 print("Number of smoker female: " + str(nosfe) + " and their avarage charges is: " + str(cosf/nosfe) + "\n" +
       "Number of non-smoker female: " + str(nonsfe) + " and their avarage charges is: " + str(consf/nonsfe) + "\n" +
       "Number of smoker male: " + str(nosm) + " and their avarage charges is: " + str(cosm/nosm) + "\n" +
       "Number of non-smoker nmale: " + str(nonsm) + " and their avarage charges is: " + str(consm/nonsm))
 
+# function for comparing charges by location
 def location_data(region, charges):
     location_tuple = list(zip(region, charges))
     sw_charge = []
@@ -146,8 +152,10 @@ def location_data(region, charges):
             ne_charge.append(float(i[1]))
     return sw_charge, se_charge, nw_charge, ne_charge
 
+# store results of charges by location in the variables
 sw_charges, se_charges, nw_charges, ne_charges = location_data(region, charges)
  
+# print different results by location 
 print("Southeast number of people: "+ str(len(se_charges)) + ", average charges: " + str(sum(se_charges) / len(se_charges)) + ", \n" +
       "min charges: " + str(min(se_charges)) + " and max charges: " + str(max(se_charges)) + "\n" +
       "Southwest number of people: "+ str(len(sw_charges)) + ", average charges: " + str(sum(sw_charges) / len(sw_charges)) + ", \n" +
