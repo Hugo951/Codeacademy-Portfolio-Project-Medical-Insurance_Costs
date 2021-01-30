@@ -110,29 +110,58 @@ def sex_data(dd):
     charges_of_non_smoker_female = 0
     charges_of_smoker_male = 0
     charges_of_non_smoker_male = 0
+    min_charges_of_smoker_female = 100000
+    max_charges_of_smoker_female = 0
+    min_charges_of__non_smoker_female = 100000
+    max_charges_of_non_smoker_female = 0
+    min_charges_of_smoker_male = 100000
+    max_charges_of_smoker_male = 0
+    min_charges_of_non_smoker_male = 100000
+    max_charges_of_non_smoker_male = 0
     for k in dd:
         if dd[k]['Sex'] == "female" and dd[k]['Smoker'] == 'yes':
             num_of_smoker_female += 1 
             charges_of_smoker_female += float(dd[k]['Charges'])
+            if float(dd[k]['Charges']) < min_charges_of_smoker_female:
+                min_charges_of_smoker_female = float(dd[k]['Charges'])
+            if float(dd[k]['Charges']) > max_charges_of_smoker_female: 
+                max_charges_of_smoker_female = float(dd[k]['Charges'])
         elif dd[k]['Sex'] == "female" and dd[k]['Smoker'] == 'no':
             num_of_non_smoker_female += 1
             charges_of_non_smoker_female += float(dd[k]['Charges'])
+            if float(dd[k]['Charges']) < min_charges_of__non_smoker_female:
+                min_charges_of__non_smoker_female = float(dd[k]['Charges'])
+            if float(dd[k]['Charges']) > max_charges_of_non_smoker_female: 
+                max_charges_of_non_smoker_female = float(dd[k]['Charges'])
         elif dd[k]['Sex'] == "male" and dd[k]['Smoker'] == 'yes':
             num_of_smoker_male += 1
             charges_of_smoker_male += float(dd[k]['Charges'])
+            if float(dd[k]['Charges']) < min_charges_of_smoker_male:
+                min_charges_of_smoker_male = float(dd[k]['Charges'])
+            if float(dd[k]['Charges']) > max_charges_of_smoker_male: 
+                max_charges_of_smoker_male = float(dd[k]['Charges'])  
         elif dd[k]['Sex'] == "male" and dd[k]['Smoker'] == 'no':
             num_of_non_smoker_male += 1
             charges_of_non_smoker_male += float(dd[k]['Charges'])
-   return num_of_smoker_female, num_of_non_smoker_female, num_of_smoker_male, num_of_non_smoker_male, charges_of_smoker_female, charges_of_non_smoker_female, charges_of_smoker_male, charges_of_non_smoker_male
+            if float(dd[k]['Charges']) < min_charges_of_non_smoker_male:
+                min_charges_of_non_smoker_male = float(dd[k]['Charges'])
+            if float(dd[k]['Charges']) > max_charges_of_non_smoker_male: 
+                max_charges_of_non_smoker_male = float(dd[k]['Charges'])
+            
+    return num_of_smoker_female, num_of_non_smoker_female, num_of_smoker_male, num_of_non_smoker_male, charges_of_smoker_female, charges_of_non_smoker_female, charges_of_smoker_male, charges_of_non_smoker_male, min_charges_of_smoker_female, max_charges_of_smoker_female, min_charges_of__non_smoker_female, max_charges_of_non_smoker_female, min_charges_of_smoker_male, max_charges_of_smoker_male, min_charges_of_non_smoker_male, max_charges_of_non_smoker_male
 
 # store results of both smoker/non-smoker female and men in the variables 
-nosfe, nonsfe, nosm, nonsm, cosf, consf, cosm, consm = sex_data(dd)
+nosfe, nonsfe, nosm, nonsm, cosf, consf, cosm, consm, min_cosf, max_cosf, min_consf, max_consf, min_cosm, max_cosm, min_consm, max_consm  = sex_data(dd)
 
 # print results for both smoker/non-smoker female and men
-print("Number of smoker female: " + str(nosfe) + " and their avarage charges is: " + str(cosf/nosfe) + "\n" +
-      "Number of non-smoker female: " + str(nonsfe) + " and their avarage charges is: " + str(consf/nonsfe) + "\n" +
-      "Number of smoker male: " + str(nosm) + " and their avarage charges is: " + str(cosm/nosm) + "\n" +
-      "Number of non-smoker nmale: " + str(nonsm) + " and their avarage charges is: " + str(consm/nonsm))
+print("Number of smoker female: " + str(nosfe) + ", avarage charges: " + str(cosf/nosfe) + ",\n" +
+      "min charge: " + str(min_cosf) + " and max charge: " + str(max_cosf) + "\n" +
+      "Number of non-smoker female: " + str(nonsfe) + ", avarage charges: " + str(consf/nonsfe) + ",\n" +
+      "min charge: " + str(min_consf) + " and max charge: " + str(max_consf) + "\n" +
+      "Number of smoker male: " + str(nosm) + ", avarage charges: " + str(cosm/nosm) + ",\n" +
+      "min charge: " + str(min_cosm) + " and max charge: " + str(max_cosm) + "\n" +
+      "Number of non-smoker nmale: " + str(nonsm) + ", avarage charges: " + str(consm/nonsm) + ",\n" +
+      "min charge: " + str(min_consm) + " and max charge: " + str(max_consm))
 
 # function for comparing charges by location
 def location_data(region, charges):
