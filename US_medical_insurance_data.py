@@ -200,32 +200,62 @@ def children_data(lst3, lst4):
     child_data = {}
     count = {}
     avg_data2 = {}
+    min_value = {}
+    max_value = {}
     for i in range(len(lst4)):
         if lst3[i] not in child_data:
             child_data[lst3[i]] = float(lst4[i])
             count[lst3[i]] = 1
+            min_value[lst3[i]] = float(lst4[i])
+            max_value[lst3[i]] = float(lst4[i])                                    
         else:
             child_data[lst3[i]] += float(lst4[i])
             count[lst3[i]] += 1
+            if lst3[i] == '0' and float(lst4[i]) < min_value['0']:
+                min_value['0'] = float(lst4[i])
+            if lst3[i] == '0' and float(lst4[i]) > max_value['0']:
+                max_value['0']= float(lst4[i])
+            if lst3[i] == '1' and float(lst4[i]) < min_value['1']:
+                min_value['1'] = float(lst4[i])
+            if lst3[i] == '1' and float(lst4[i]) > max_value['1']:
+                max_value['1']= float(lst4[i])
+            if lst3[i] == '2' and float(lst4[i]) < min_value['2']:
+                min_value['2'] = float(lst4[i])
+            if lst3[i] == '2' and float(lst4[i]) > max_value['2']:
+                max_value['2']= float(lst4[i])
+            if lst3[i] == '3' and float(lst4[i]) < min_value['3']:
+                min_value['3'] = float(lst4[i])
+            if lst3[i] == '3' and float(lst4[i]) > max_value['3']:
+                max_value['3']= float(lst4[i])
+            if lst3[i] == '4' and float(lst4[i]) < min_value['4']:
+                min_value['4'] = float(lst4[i])
+            if lst3[i] == '4' and float(lst4[i]) > max_value['4']:
+                max_value['4']= float(lst4[i])
+            if lst3[i] == '5' and float(lst4[i]) < min_value['5']:
+                min_value['5'] = float(lst4[i])
+            if lst3[i] == '5' and float(lst4[i]) > max_value['5']:
+                max_value['5']= float(lst4[i])
             avg_data2[lst3[i]] = child_data[lst3[i]] / count[lst3[i]] 
-    return (avg_data2, count)
+    return avg_data2, count, min_value, max_value
+
+
 
 # dict for average bmi of different numbers of children and number of people       
-avg_bmi_per_child, people_count_bmi = children_data(children, bmi)
+avg_bmi_per_child, people_count_bmi, min_bmi, max_bmi = children_data(children, bmi)
 # dict for average chargers of different numbers of children and number of people 
-avg_charges_per_child, people_count_ch = children_data(children, charges)
+avg_charges_per_child, people_count_ch, min_ch, max_ch = children_data(children, charges)
 
 # print results for average bmi and chargers 
 # and number of people of different number of children
 for k in sorted(avg_bmi_per_child):
-    print("Number of children: " + k + ", average bmi: " + str(avg_bmi_per_child[k]) + 
-          ", average charges: " + str(avg_charges_per_child[k]) + ", number of people: " 
-          + str(people_count_bmi[k]))
-
+    print("Number of children: " + k + ", min bmi: " + str(min_bmi[k]) + ", max bmi: " + str(max_bmi[k]) +
+          ", average bmi: " + str(avg_bmi_per_child[k]) + ", min charge: " + str(min_ch[k]) +
+          ", max charge: " + str(max_ch[k]) + ", average charge: " + str(avg_charges_per_child[k]) + 
+          ", number of people: " + str(people_count_bmi[k]))
 
 
  
- 
+
  
     
     
