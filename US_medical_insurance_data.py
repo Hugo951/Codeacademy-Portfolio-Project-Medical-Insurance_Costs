@@ -73,12 +73,18 @@ bmi_lst = [float(i) for i in bmi]
 charges_lst = [float(i) for i in charges]
 
 # print average, minimum and maximum values for age, bmi and charges
-print("Average age: " + str(avg_age) + ", Minimum age: " + str(min(age)) + 
-      ", Maximum age: " + str(max(age)))
-print("Average bmi: " + str(avg_bmi) + ", Minimum bmi: " + str(min(bmi_lst)) +
-      ", Maximum bmi: " + str(max(bmi_lst)))
-print("Average charges: " + str(avg_charges) + ", Minimum charges: " + str(min(charges_lst)) +
-      ", Maximum charges: " + str(max(charges_lst)))
+print("AGE: " + "\n" +
+      " - Average age: " + str(avg_age) + "\n" +
+      " - Minimum age: " + str(min(age)) + "\n" +
+      " - Maximum age: " + str(max(age)) + "\n" +
+      "BMI: " + "\n" +
+      " - Average bmi: " + str(avg_bmi) + "\n" +
+      " - Minimum bmi: " + str(min(bmi_lst)) + "\n" +
+      " - Maximum bmi: " + str(max(bmi_lst)) + "\n" +
+      "CHARGES: " + "\n" +
+      " - Average charges: " + str(avg_charges) +"\n" +
+      " - Minimum charges: " + str(min(charges_lst)) + "\n" +
+      " - Maximum charges: " + str(max(charges_lst)))
 
 # compare insurance costs between smokers and non-smokers  
 # function for combining 2 lists to dict and add the values
