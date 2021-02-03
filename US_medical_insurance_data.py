@@ -192,25 +192,25 @@ nosfe, nonsfe, nosm, nonsm, cosf, consf, cosm, consm, min_cosf, max_cosf, min_co
 
 # print results for both smoker/non-smoker female and men
 print("Smoker female: " + "\n" +
-      " - number of people: " + str(nosfe) + "\n" +
-      " - avarage charges: " + str(cosf/nosfe) + "\n" +
+      " - num of people: " + str(nosfe) + "\n" +
       " - min charge: " + str(min_cosf) + "\n" +
       " - max charge: " + str(max_cosf) + "\n" +
+      " - avarage charges: " + str(cosf/nosfe) + "\n" +
       "Non-smoker female: " + "\n" +
-      " - number of people: " + str(nonsfe) + "\n" +
-      " - avarage charges: " + str(consf/nonsfe) + "\n" +
+      " - num of people: " + str(nonsfe) + "\n" +
       " - min charge: " + str(min_consf) + "\n" +
       " - max charge: " + str(max_consf) + "\n" +
+      " - avarage charges: " + str(consf/nonsfe) + "\n" +
       "Smoker male: " + "\n" +
-      " - number of people: " + str(nosm) + "\n" +
-      " - avarage charges: " + str(cosm/nosm) + "\n" +
+      " - num of people: " + str(nosm) + "\n" +
       " - min charge: " + str(min_cosm) + "\n" +
       " - max charge: " + str(max_cosm) + "\n" +
-      "Non-smoker nmale: " + "\n" +
-      " - number of people: " + str(nonsm) + "\n" +
-      " - avarage charges: " + str(consm/nonsm) + "\n" +
+      " - avarage charges: " + str(cosm/nosm) + "\n" +
+      "Non-smoker male: " + "\n" +
+      " - num of people: " + str(nonsm) + "\n" +
       " - min charge: " + str(min_consm) + "\n" +
-      " - max charge: " + str(max_consm) + "\n")
+      " - max charge: " + str(max_consm) + "\n" +
+      " - avarage charges: " + str(consm/nonsm) + "\n")
 
 # function for comparing charges by location
 def location_data(region, charges):
