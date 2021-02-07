@@ -63,6 +63,33 @@ def avg_data(lst):
     avg_lst = sum_of_lst / len(lst)
     return avg_lst
 
+# function for calculating data for female and male
+def data(list1, list2):
+    fe_data = []
+    ma_data = []
+    for i in range(len(list1)): 
+        if list1[i] == 'female':
+            fe_data.append(float(list2[i]))
+        elif list1[i] == 'male':
+            ma_data.append(float(list2[i]))
+    return fe_data, ma_data
+
+# function for calculating data for bmi or age
+def data2(list1, list2):
+    list_data = [[] for _ in range(5)]
+    for i in range(len(list2)): 
+        if list1[i] <= '20':
+            list_data[0].append(float(list2[i]))
+        elif list1[i] <= '30':
+            list_data[1].append(float(list2[i]))
+        elif list1[i] <= '40':
+            list_data[2].append(float(list2[i]))
+        elif list1[i] <= '50':
+            list_data[3].append(float(list2[i]))
+        elif list1[i] > '50':
+            list_data[4].append(float(list2[i]))
+    return list_data
+    
 # the averages are stored in the variables
 avg_age = avg_data(age)
 avg_bmi = avg_data(bmi)
@@ -72,19 +99,53 @@ avg_charges = avg_data(charges)
 bmi_lst = [float(i) for i in bmi]
 charges_lst = [float(i) for i in charges]
 
+female_age, male_age = data(sex, age)
+female_bmi, male_bmi = data(sex, bmi)
+female_charges, male_charges = data(sex, charges)
+
+bmi_ch_data = data2(bmi, charges)
+bmi_level = ['0-20', '20.01-30', '30.01-40', '40.01-50', '>50']
+
 # print average, minimum and maximum values for age, bmi and charges
 print("AGE: " + "\n" +
       " - Average age: " + str(avg_age) + "\n" +
       " - Minimum age: " + str(min(age)) + "\n" +
       " - Maximum age: " + str(max(age)) + "\n" +
+      " - Female avg age: " + str(sum(female_age) / len(female_age)) + "\n" +
+      " - Female min age: " + str(min(female_age)) + "\n" +
+      " - Female max age: " + str(max(female_age)) + "\n" +
+      " - Num of female: " + str(len(female_age)) + "\n" +
+      " - Male avg age: " + str(sum(male_age) / len(male_age)) + "\n" +
+      " - Male min age: " + str(min(male_age)) + "\n" +
+      " - Male max age: " + str(max(male_age)) + "\n" +
+      " - Num of male: " + str(len(male_age)) + "\n" +
       "BMI: " + "\n" +
       " - Average bmi: " + str(avg_bmi) + "\n" +
       " - Minimum bmi: " + str(min(bmi_lst)) + "\n" +
       " - Maximum bmi: " + str(max(bmi_lst)) + "\n" +
+      " - Female avg bmi: " + str(sum(female_bmi) / len(female_bmi)) + "\n" +
+      " - Female min bmi: " + str(min(female_bmi)) + "\n" +
+      " - Female max bmi: " + str(max(female_bmi)) + "\n" +
+      " - Male avg bmi: " + str(sum(male_bmi) / len(male_bmi)) + "\n" +
+      " - Male min bmi: " + str(min(male_bmi)) + "\n" +
+      " - Male max bmi: " + str(max(male_bmi)) + "\n" +
       "CHARGES: " + "\n" +
       " - Average charges: " + str(avg_charges) +"\n" +
       " - Minimum charges: " + str(min(charges_lst)) + "\n" +
-      " - Maximum charges: " + str(max(charges_lst)))
+      " - Maximum charges: " + str(max(charges_lst)) + "\n" +
+      " - Female avg charges: " + str(sum(female_charges) / len(female_charges)) + "\n" +
+      " - Female min charges: " + str(min(female_charges)) + "\n" +
+      " - Female max charges: " + str(max(female_charges)) + "\n" +
+      " - Male avg charges: " + str(sum(male_charges) / len(male_age)) + "\n" +
+      " - Male min charges: " + str(min(male_charges)) + "\n" +
+      " - Male max charges: " + str(max(male_charges)) + "\n")
+
+for i in range(len(bmi_ch_data)):
+        print("\n" + "Bmi level " + str(bmi_level[i]) + ": " + "\n" +
+              " - min charge: " + str(min(bmi_ch_data[i])) + "\n" +
+              " - max charge: " + str(max(bmi_ch_data[i])) + "\n" +
+              " - average charge: " + str(sum(bmi_ch_data[i]) / len((bmi_ch_data[i])))  + "\n"
+              " - num of people: " + str(len(bmi_ch_data[i]))  + "\n")
 
 # compare insurance costs between smokers and non-smokers  
 # function for combining 2 lists to dict and add the values
